@@ -5,7 +5,7 @@ def parse_expression(expression):
     for char in expression:
         if char.isdigit():
             current_number += char
-        elif char != " ":  # Пропускаем пробелы
+        elif char != " ":
             if current_number:
                 result.append(int(current_number))
                 current_number = ""
@@ -35,17 +35,14 @@ def infix_to_postfix(expression):
         elif token == '(':
             stack.append(token)
         elif token == ')':
-            # Закрывающая скобка: выталкиваем операторы из стека до открывающей скобки
             while stack and stack[-1] != '(':
                 result.append(stack.pop())
-            stack.pop()  # Удаляем открывающую скобку из стека
+            stack.pop()
         else:
-            # Оператор: выталкиваем операторы с большим приоритетом
             while stack and operand_priority(token) < operand_priority(stack[-1]):
                 result.append(stack.pop())
-            stack.append(token)  # Добавляем текущий оператор в стек
+            stack.append(token)
 
-    # Выталкиваем оставшиеся операторы из стека
     while stack:
         result.append(stack.pop())
 
@@ -70,7 +67,6 @@ def evaluate_postfix(expression):
                 stack.append(operand1 * operand2)
             elif token == '/':
                 stack.append(operand1 / operand2)
-            # Добавьте другие операторы, если необходимо
 
     return stack.pop()
 
