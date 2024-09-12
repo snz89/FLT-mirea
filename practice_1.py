@@ -29,19 +29,19 @@ def infix_to_postfix(expression):
     result = []
     stack = []
 
-    for token in expression:
-        if isinstance(token, int) or isinstance(token, float):
-            result.append(str(token))
-        elif token == '(':
-            stack.append(token)
-        elif token == ')':
+    for element in expression:
+        if isinstance(element, int) or isinstance(element, float):
+            result.append(str(element))
+        elif element == '(':
+            stack.append(element)
+        elif element == ')':
             while stack and stack[-1] != '(':
                 result.append(stack.pop())
             stack.pop()
         else:
-            while stack and operand_priority(token) <= operand_priority(stack[-1]):
+            while stack and operand_priority(element) <= operand_priority(stack[-1]):
                 result.append(stack.pop())
-            stack.append(token)
+            stack.append(element)
 
     while stack:
         result.append(stack.pop())
@@ -52,20 +52,20 @@ def infix_to_postfix(expression):
 def evaluate_postfix(expression):
     stack = []
 
-    for token in expression:
-        if token.isdigit():
-            stack.append(int(token))
+    for element in expression:
+        if element.isdigit():
+            stack.append(int(element))
         else:
             operand2 = stack.pop()
             operand1 = stack.pop()
 
-            if token == '+':
+            if element == '+':
                 stack.append(operand1 + operand2)
-            elif token == '-':
+            elif element == '-':
                 stack.append(operand1 - operand2)
-            elif token == '*':
+            elif element == '*':
                 stack.append(operand1 * operand2)
-            elif token == '/':
+            elif element == '/':
                 stack.append(operand1 / operand2)
 
     return stack.pop()
