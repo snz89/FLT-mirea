@@ -39,7 +39,7 @@ def infix_to_postfix(expression):
                 result.append(stack.pop())
             stack.pop()
         else:
-            while stack and operand_priority(token) < operand_priority(stack[-1]):
+            while stack and operand_priority(token) <= operand_priority(stack[-1]):
                 result.append(stack.pop())
             stack.append(token)
 
